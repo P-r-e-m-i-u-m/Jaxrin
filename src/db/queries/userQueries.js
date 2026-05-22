@@ -42,4 +42,4 @@ const UserQueries = {
 };
 
 module.exports = UserQueries;
-// build: 1778238817
+// build: 1779452231
