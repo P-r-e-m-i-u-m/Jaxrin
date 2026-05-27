@@ -5,6 +5,13 @@ on:
     - cron: '0 9 * * *'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-auto-commit-main
+  cancel-in-progress: false
+
 jobs:
   auto-commit:
     runs-on: ubuntu-latest
@@ -12,6 +19,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           token: ${{ github.token }}
+          fetch-depth: 0
 
       - name: Daily meaningful update
         run: |
@@ -223,7 +231,6 @@ jobs:
           # First main commit
           git add .
           git commit -m "$MAIN_MSG"
-          git push
 
           # Extra commits based on COMMIT_COUNT
           for i in $(seq 1 $(( COMMIT_COUNT - 1 ))); do
@@ -234,5 +241,18 @@ jobs:
             echo "// auto-maintained: $DATE.$i build: $TS" > $EXTRA_FILE
             git add .
             git commit -m "$EXTRA_MSG"
-            git push
           done
+
+          # Push once at the end so the run cannot partially succeed and then fail mid-stream.
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+
+            echo "Push failed on attempt $attempt; fetching and rebasing before retry."
+            git fetch origin main
+            git rebase origin/main
+            sleep $((attempt * 10))
+          done
+
+          git push origin HEAD:main

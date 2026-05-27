@@ -1,9 +1,14 @@
-name: Daily Auto Commit
+name: Manual Activity Timestamp
 
 on:
-  schedule:
-    - cron: '0 9 * * *'
   workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-auto-commit-main
+  cancel-in-progress: false
 
 jobs:
   auto-commit:
