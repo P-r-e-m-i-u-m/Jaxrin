@@ -1,7 +1,7 @@
 /**
  * @file security.js
  * @description Security headers middleware (replaces helmet for fine-grained control)
- * @updated 2026-05-30
+ * @updated 2026-06-13
  */
 const securityHeaders = (req, res, next) => {
   res.removeHeader("X-Powered-By");
@@ -17,4 +17,4 @@ const securityHeaders = (req, res, next) => {
 };
 
 module.exports = { securityHeaders };
-// build: 1780139939
+// build: 1781351586
