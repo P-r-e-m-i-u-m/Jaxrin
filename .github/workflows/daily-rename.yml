@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Generate new name and rename repo
         env:
-          TOKEN: ${{ secrets.RENAME_TOKEN }}
+          TOKEN: ${{ secrets.EVERY_DAY_NEW_NAME }}
           OWNER: P-r-e-m-i-u-m
           REPO: ${{ github.event.repository.name }}
         run: |
