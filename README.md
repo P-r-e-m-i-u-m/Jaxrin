@@ -41,6 +41,7 @@ flowchart LR
   Middleware --> Tracing["Distributed tracing"]
   Actions --> CronScheduler["Cron scheduler"]
   Services --> AuditLog["Audit logger"]
+  Services --> PdfGenerator["PDF generator"]
 ```
 
 ## Tech Stack
