@@ -46,6 +46,7 @@ flowchart LR
   Services --> FileStorage["File storage"]
   Services --> Notifications["Notification service"]
   LoadBalancer --> CDN["CDN"]
+  Services --> ComplianceLog["Compliance logger"]
 ```
 
 ## Tech Stack
