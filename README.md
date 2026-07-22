@@ -52,6 +52,7 @@ flowchart LR
   Services --> MLInference["ML inference"]
   Services --> SearchIndex["Search index"]
   Queue --> BackupJob["Backup job"]
+  Services --> EmailService["Email service"]
 ```
 
 ## Tech Stack
